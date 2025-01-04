@@ -34,7 +34,7 @@ const XZ_MAGIC: [u8; 2] = [0xFD, 0x37];
 #[cfg(feature = "zstd")]
 const ZST_MAGIC: [u8; 2] = [0x28, 0xB5];
 
-fn get_fastx_reader<'a, R: 'a + io::Read + Send>(
+fn get_fastx_reader<'a, R: 'a + io::Read>(
     reader: R,
     first_byte: u8,
 ) -> Result<Box<dyn FastxReader + 'a>, ParseError> {
@@ -82,7 +82,7 @@ fn get_fastx_reader<'a, R: 'a + io::Read + Send>(
 /// [xz]: https://tukaani.org/xz/format.html
 /// [zstd]: https://facebook.github.io/zstd/
 ///
-pub fn parse_fastx_reader<'a, R: 'a + io::Read + Send>(
+pub fn parse_fastx_reader<'a, R: 'a + io::Read>(
     mut reader: R,
 ) -> Result<Box<dyn FastxReader + 'a>, ParseError> {
     let mut first_two_bytes = [0; 2];
